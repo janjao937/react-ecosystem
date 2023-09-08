@@ -16,5 +16,8 @@ button{
   width: 150px;
   height: 75px;
   cursor: pointer;
-
+  border-radius: 20%;
+}
+button:hover{
+  border-radius: 0;
 }

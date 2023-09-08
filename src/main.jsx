@@ -1,30 +1,67 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import ReactDOM from 'react-dom/client'
 
 import './index.css'
 
-const App =()=>{
-  const [isDatkMode,ediMode] = useState(false);
+//create context
+const ThemeCtx = React.createContext();
 
-  const OnChangeModeHandler =()=>{
-    ediMode(!isDatkMode);
-  }
+//Create HOC:Higher Order Component Provider
+const ThemeContextProvider =(p)=>{
+  const [isDatkMode,ediMode] = useState(false);
   const styleObj = {
     backgroundColor : isDatkMode?"black":"white",
     color:isDatkMode?"white":"black",
-
   }
-  const btnObj = {
+
+  const btnStyleObj = {
     backgroundColor : isDatkMode?"white":"black",
     color:isDatkMode?"black":"white",
 
   }
+
+  const OnChangeThemeHandler =()=>{
+    ediMode(!isDatkMode);
+  }
+
+  const sharedObj ={fruit:"Banana", theme:styleObj, btnTheme:btnStyleObj, toggleTheme:OnChangeThemeHandler}
+
+  return <ThemeCtx.Provider value={sharedObj}>{p.children}</ThemeCtx.Provider>
+}
+
+const App =()=>{
+  const {fruit,theme,btnTheme,toggleTheme} = useContext(ThemeCtx);
+
+  // const [isDatkMode,ediMode] = useState(false);
+
+  // const OnChangeModeHandler =()=>{
+  //   ediMode(!isDatkMode);
+  // }
+  // const styleObj = {
+  //   backgroundColor : isDatkMode?"black":"white",
+  //   color:isDatkMode?"white":"black",
+
+  // }
+  // const btnObj = {
+  //   backgroundColor : isDatkMode?"white":"black",
+  //   color:isDatkMode?"black":"white",
+
+  //}
   return(
-    <div className='App' style={styleObj}>
-      <h1>Banana</h1>
-      <button style={btnObj} onClick={OnChangeModeHandler}>Change Theme</button>
+    
+    <div className='App' style={theme}>
+      <h1>{fruit}</h1>
+      <button style={btnTheme} onClick={toggleTheme}>Change Theme</button>
     </div>
+   
   )
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+ReactDOM.createRoot(document.getElementById('root')).render(
+<ThemeContextProvider>
+
+<App/>
+</ThemeContextProvider>
+
+
+);
