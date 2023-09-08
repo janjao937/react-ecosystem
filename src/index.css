@@ -4,7 +4,7 @@
   padding: 0;
 }
 .App {
-  height: 100vh;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,5 +16,19 @@ button {
   padding: 5px;
   font-size: 16px;
   border-radius: 5px;
+  cursor: pointer;
+}
+a{
+  padding: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+
+.friends{
+  padding: 10px 30px;
+  border: solid salmon;
+  border-radius: 5px;
+  width: 400px;
   cursor: pointer;
 }
