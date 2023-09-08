@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import { Link,useNavigate,useParams,Navigate } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 import axios from "axios";
 import './index.css'
 
@@ -98,7 +99,37 @@ const NotFound = ()=>{
     <h1>404:Not Found</h1>
   </div>
 }
+const AppLayout = ()=>{
+  return(
+    <div>
+      <Link to ="/">Home</Link>
+      <Link to ="/profile">Profile</Link>
+      <Link to ="/feed">Feed</Link>
+      <Link to ="/friends/:id">Friends</Link>
+      <Outlet />
+    </div>
+  )
+}
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+ 
+  <Routes>
+      <Route path='/' element={<AppLayout/>}>
 
+         <Route path='/' element={<HomePage/>}/>
+         <Route path='/feed' element={<Feed/>}/>
+         <Route path='/profile' element={<Profile/>}/>
+         <Route path='/friends/:id' element={<FriendsPage/>}/>
+         
+         <Route path ="*" element={<NotFound/>}/> 
+      </Route>
+
+  
+  </Routes>
+  </BrowserRouter>
+);
+
+/*
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Link to ="/">Home</Link>
@@ -111,10 +142,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Route path='/profile' element={<Profile/>}/>
   <Route path='/friends/:id' element={<FriendsPage/>}/>
   
-  {/* <Route path ="*" element={<NotFound/>}/> */}
+  {<Route path ="*" element={<NotFound/>}/> }
 
   <Route path ="*" element={<Navigate to = "/" />}/>
   
   </Routes>
   </BrowserRouter>
 );
+
+*/
